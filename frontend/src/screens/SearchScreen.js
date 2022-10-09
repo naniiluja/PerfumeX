@@ -138,7 +138,7 @@ export default function SearchScreen() {
           <div>
             <ul>
               <li>
-                <Link
+                <Link 
                   className={'all' === category ? 'text-bold' : ''}
                   to={getFilterUrl({ category: 'all' })}
                 >
