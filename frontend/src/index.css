@@ -45,7 +45,7 @@ main {
   padding: 1rem;
 }
 .img-large {
-  max-width: 100%;
+  max-width: 80%;
 }
 .img-thumbnail {
   height: 80px;
@@ -137,4 +137,8 @@ button.thumbnail {
   color: rgb(3, 3, 3);
   text-decoration: none;
   display:inline-block;
+}
+
+button.thumbnail {
+  padding: 0;
 }
