@@ -12,6 +12,7 @@ import MessageBox from '../components/MessageBox';
 import Button from 'react-bootstrap/Button';
 import Product from '../components/Product';
 import LinkContainer from 'react-router-bootstrap/LinkContainer';
+import styled from "styled-components";
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -33,6 +34,12 @@ const reducer = (state, action) => {
       return state;
   }
 };
+
+const StyledLink = styled(Link)`
+  color: Black;
+  text-decoration: none;
+  position: relative;
+`;
 
 const prices = [
   {
@@ -134,25 +141,25 @@ export default function SearchScreen() {
       </Helmet>
       <Row>
         <Col md={3}>
-          <h3>Department</h3>
+          <h3>Categories</h3>
           <div>
             <ul>
               <li>
-                <Link 
+                <StyledLink 
                   className={'all' === category ? 'text-bold' : ''}
                   to={getFilterUrl({ category: 'all' })}
                 >
                   Any
-                </Link>
+                </StyledLink>
               </li>
               {categories.map((c) => (
                 <li key={c}>
-                  <Link
+                  <StyledLink
                     className={c === category ? 'text-bold' : ''}
                     to={getFilterUrl({ category: c })}
                   >
                     {c}
-                  </Link>
+                  </StyledLink>
                 </li>
               ))}
             </ul>
@@ -161,45 +168,45 @@ export default function SearchScreen() {
             <h3>Price</h3>
             <ul>
               <li>
-                <Link
+                <StyledLink
                   className={'all' === price ? 'text-bold' : ''}
                   to={getFilterUrl({ price: 'all' })}
                 >
                   Any
-                </Link>
+                </StyledLink>
               </li>
               {prices.map((p) => (
                 <li key={p.value}>
-                  <Link
+                  <StyledLink
                     to={getFilterUrl({ price: p.value })}
                     className={p.value === price ? 'text-bold' : ''}
                   >
                     {p.name}
-                  </Link>
+                  </StyledLink>
                 </li>
               ))}
             </ul>
           </div>
           <div>
-            <h3>Avg. Customer Review</h3>
+            <h3>Customer Review</h3>
             <ul>
               {ratings.map((r) => (
                 <li key={r.name}>
-                  <Link
+                  <StyledLink
                     to={getFilterUrl({ rating: r.rating })}
                     className={`${r.rating}` === `${rating}` ? 'text-bold' : ''}
                   >
                     <Rating caption={' & up'} rating={r.rating}></Rating>
-                  </Link>
+                  </StyledLink>
                 </li>
               ))}
               <li>
-                <Link
+                <StyledLink
                   to={getFilterUrl({ rating: 'all' })}
                   className={rating === 'all' ? 'text-bold' : ''}
                 >
                   <Rating caption={' & up'} rating={0}></Rating>
-                </Link>
+                </StyledLink>
               </li>
             </ul>
           </div>

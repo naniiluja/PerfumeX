@@ -62,6 +62,10 @@ export default function ProductEditScreen() {
   const [countInStock, setCountInStock] = useState("");
   const [brand, setBrand] = useState("");
   const [description, setDescription] = useState("");
+  const [tone, setTone] = useState("");
+  const [first, setFirst] = useState("");
+  const [mid, setMid] = useState("");
+  const [end, setEnd] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -77,6 +81,10 @@ export default function ProductEditScreen() {
         setCountInStock(data.countInStock);
         setBrand(data.brand);
         setDescription(data.description);
+        setTone(data.tone);
+        setFirst(data.first);
+        setMid(data.mid);
+        setEnd(data.end);
         dispatch({ type: "FETCH_SUCCESS" });
       } catch (err) {
         dispatch({
@@ -105,6 +113,10 @@ export default function ProductEditScreen() {
           brand,
           countInStock,
           description,
+          tone,
+          first,
+          mid,
+          end
         },
         {
           headers: { Authorization: `Bearer ${userInfo.token}` },
@@ -254,6 +266,38 @@ export default function ProductEditScreen() {
             <Form.Control
               value={description}
               onChange={(e) => setDescription(e.target.value)}
+              required
+            />
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="tone">
+            <Form.Label>Tone</Form.Label>
+            <Form.Control
+              value={tone}
+              onChange={(e) => setTone(e.target.value)}
+              required
+            />
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="first">
+            <Form.Label>First</Form.Label>
+            <Form.Control
+              value={first}
+              onChange={(e) => setFirst(e.target.value)}
+              required
+            />
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="mid">
+            <Form.Label>Mid</Form.Label>
+            <Form.Control
+              value={mid}
+              onChange={(e) => setMid(e.target.value)}
+              required
+            />
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="end">
+            <Form.Label>End</Form.Label>
+            <Form.Control
+              value={end}
+              onChange={(e) => setEnd(e.target.value)}
               required
             />
           </Form.Group>

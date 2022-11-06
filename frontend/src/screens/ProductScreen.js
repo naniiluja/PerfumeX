@@ -16,6 +16,9 @@ import { getError } from "../utils";
 import { Store } from "../Store";
 import FloatingLabel from "react-bootstrap/FloatingLabel";
 import { toast } from "react-toastify";
+import Collapse from "react-bootstrap/Collapse";
+import Tab from "react-bootstrap/Tab";
+import Tabs from "react-bootstrap/Tabs";
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -48,6 +51,8 @@ function ProductScreen() {
   const navigate = useNavigate();
   const params = useParams();
   const { slug } = params;
+  const [open, setOpen] = useState(true);
+  const [key, setKey] = useState("home");
 
   const [{ loading, error, product, loadingCreateReview }, dispatch] =
     useReducer(reducer, {
@@ -124,14 +129,14 @@ function ProductScreen() {
   ) : (
     <div>
       <Row>
-        <Col md={6}>
+        <Col md={5}>
           <img
             className="img-large"
             src={selectedImage || product.image}
             alt={product.name}
           ></img>
         </Col>
-        <Col md={3}>
+        <Col md={4}>
           <ListGroup variant="flush">
             <ListGroup.Item>
               <Helmet>
@@ -164,14 +169,23 @@ function ProductScreen() {
                 ))}
               </Row>
             </ListGroup.Item>
-            <ListGroup.Item>
-              Description:
-              <p>{product.description}</p>
-            </ListGroup.Item>
-            <ListGroup.Item>
-              Description:
-              <p>{product.description}</p>
-            </ListGroup.Item>
+            <Tabs
+              id="controlled-tab-example"
+              activeKey={key}
+              onSelect={(k) => setKey(k)}
+              className="mb-3"
+            >
+              <Tab eventKey="home" title="Home">
+                <ListGroup.Item>Tone incense : {product.tone}</ListGroup.Item>
+                <ListGroup.Item>Head incence : {product.first}</ListGroup.Item>
+                <ListGroup.Item>Middle incence : {product.mid}</ListGroup.Item>
+                <ListGroup.Item>End incence : {product.end}</ListGroup.Item>
+              </Tab>
+              <Tab eventKey="profile" title="Profile">
+                
+              </Tab>
+              <Tab eventKey="contact" title="Contact"></Tab>
+            </Tabs>
           </ListGroup>
         </Col>
         <Col md={3}>
@@ -211,6 +225,10 @@ function ProductScreen() {
           </Card>
         </Col>
       </Row>
+      <ListGroup.Item>
+        <h5>Description:</h5>
+        <p>{product.description}</p>
+      </ListGroup.Item>
       <div className="my-3">
         <h2 ref={reviewsRef}>Reviews</h2>
         <div className="mb-3">
