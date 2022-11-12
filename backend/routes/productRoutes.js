@@ -2,6 +2,7 @@ import express from 'express';
 import Product from '../models/productModel.js';
 import expressAsyncHandler from 'express-async-handler';
 import { isAuth, isAdmin } from '../utils.js';
+import { isValidReview, autoBanUserAsync } from '../helpers/reviewHelper.js';
 
 const productRouter = express.Router();
 
@@ -90,6 +91,22 @@ productRouter.post(
         rating: Number(req.body.rating),
         comment: req.body.comment,
       };
+      if (!isValidReview(req.body.comment)) {
+        var isBanUser = await autoBanUserAsync(req.user._id);
+        if(!isBanUser) {
+          return res.status(400).send({
+            message: "Your review is so offensive!",
+            review: req.body.comment,
+          });
+        }
+        else {
+          return res.status(400).send({
+            message: "Your account has been banned due to our review policy!",
+            banFlag: true
+          });
+        }
+      }
+      
       product.reviews.push(review);
       product.numReviews = product.reviews.length;
       product.rating =
