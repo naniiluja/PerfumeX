@@ -81,6 +81,7 @@ main {
   left: -300px;
   background-color: #100901;
   transition: 0.5s;
+  padding: 9px 10px !important;
 }
 
 .site-container {
@@ -279,9 +280,13 @@ z-index: 1000;
 
 .perfumeXbig{
   font-family: Segoe UI Light;
-  font-size: 40px;
+  font-size: 45px;
 }
 
+.perfumeX{
+  font-family: Segoe UI Light;
+  font-size: 25px;
+}
 .perfumeXsmall{
   font-family: Times New Roman;
   font-style: italic;
@@ -303,3 +308,4 @@ z-index: 1000;
 .navlinka{
   color:white
 }
+

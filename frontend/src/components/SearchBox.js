@@ -4,6 +4,7 @@ import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import FormControl from 'react-bootstrap/FormControl';
 import { useNavigate } from 'react-router-dom';
+import { CDBInput } from 'cdbreact';
 
 export default function SearchBox() {
   const navigate = useNavigate();
@@ -14,14 +15,14 @@ export default function SearchBox() {
   };
 
   return (
-    <Form className="d-flex me-auto" style={{width: "700px"}}onSubmit={submitHandler}>
-      <InputGroup>
+    <Form className="d-flex me-auto" style={{width: "800px"}}onSubmit={submitHandler}>
+      <InputGroup >
         <FormControl
           type="text"
           name="q"
           id="q"
           onChange={(e) => setQuery(e.target.value)}
-          placeholder="Search products..."
+          placeholder="Search your favorite perfume..."
           aria-label="Search Products"
           aria-describedby="button-search"
         ></FormControl>

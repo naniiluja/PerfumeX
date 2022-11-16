@@ -13,6 +13,7 @@ import Button from 'react-bootstrap/Button';
 import Product from '../components/Product';
 import LinkContainer from 'react-router-bootstrap/LinkContainer';
 import styled from "styled-components";
+import { CDBMultiselect } from "cdbreact";
 
 const reducer = (state, action) => {
   switch (action.type) {

@@ -19,6 +19,20 @@ import { toast } from "react-toastify";
 import Collapse from "react-bootstrap/Collapse";
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
+import {
+  CDBNav,
+  CDBTabLink,
+  CDBTabContent,
+  CDBTabPane,
+  CDBContainer,
+} from "cdbreact";
+import {
+  MDBTabs,
+  MDBTabsItem,
+  MDBTabsLink,
+  MDBTabsContent,
+  MDBTabsPane,
+} from "mdb-react-ui-kit";
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -47,7 +61,21 @@ function ProductScreen() {
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState("");
   const [selectedImage, setSelectedImage] = useState("");
+  const [item1, setItem1] = useState("1");
+  const [fillActive, setFillActive] = useState("tab1");
 
+  const handleFillClick = (value: string) => {
+    if (value === fillActive) {
+      return;
+    }
+
+    setFillActive(value);
+  };
+  const toggle = (tab) => {
+    if (item1 !== tab) {
+      setItem1(tab);
+    }
+  };
   const navigate = useNavigate();
   const params = useParams();
   const { slug } = params;
@@ -169,23 +197,61 @@ function ProductScreen() {
                 ))}
               </Row>
             </ListGroup.Item>
-            <Tabs
-              id="controlled-tab-example"
-              activeKey={key}
-              onSelect={(k) => setKey(k)}
-              className="mb-3"
-            >
-              <Tab eventKey="home" title="Home">
+
+            <MDBTabs fill className="mb-3">
+              <MDBTabsItem>
+                <MDBTabsLink
+                  onClick={() => handleFillClick("tab1")}
+                  active={fillActive === "tab1"}
+                >
+                  Incence
+                </MDBTabsLink>
+              </MDBTabsItem>
+              <MDBTabsItem>
+                <MDBTabsLink
+                  onClick={() => handleFillClick("tab2")}
+                  active={fillActive === "tab2"}
+                >
+                  More
+                </MDBTabsLink>
+              </MDBTabsItem>
+              <MDBTabsItem>
+                <MDBTabsLink
+                  onClick={() => handleFillClick("tab3")}
+                  active={fillActive === "tab3"}
+                >
+                  Recomendation
+                </MDBTabsLink>
+              </MDBTabsItem>
+            </MDBTabs>
+
+            <MDBTabsContent>
+              <MDBTabsPane show={fillActive === "tab1"}>
                 <ListGroup.Item>Tone incense : {product.tone}</ListGroup.Item>
                 <ListGroup.Item>Head incence : {product.first}</ListGroup.Item>
                 <ListGroup.Item>Middle incence : {product.mid}</ListGroup.Item>
                 <ListGroup.Item>End incence : {product.end}</ListGroup.Item>
-              </Tab>
-              <Tab eventKey="profile" title="Profile">
-                
-              </Tab>
-              <Tab eventKey="contact" title="Contact"></Tab>
-            </Tabs>
+              </MDBTabsPane>
+              <MDBTabsPane show={fillActive === "tab2"}>
+                <ListGroup.Item>Release : {product.year}</ListGroup.Item>
+                <ListGroup.Item>Sex : {product.category}</ListGroup.Item>
+                <ListGroup.Item>Age : {product.age}</ListGroup.Item>
+                <ListGroup.Item>
+                  <Form.Label>Odor Retention</Form.Label>
+                  <Form.Range
+                    value={product.odor}
+                    label="fd"
+                    min="0"
+                    max="5"
+                    disabled
+                  />
+                </ListGroup.Item>
+              </MDBTabsPane>
+              <MDBTabsPane show={fillActive === "tab3"}>
+                <ListGroup.Item>Season : {product.season}</ListGroup.Item>
+                <ListGroup.Item>Time : {product.time}</ListGroup.Item>
+              </MDBTabsPane>
+            </MDBTabsContent>
           </ListGroup>
         </Col>
         <Col md={3}>

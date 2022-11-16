@@ -50,10 +50,10 @@ export default function PaymentMethodScreen() {
           <div className="mb-3">
             <Form.Check
               type="radio"
-              id="Stripe"
-              label="Stripe"
-              value="Stripe"
-              checked={paymentMethodName === 'Stripe'}
+              id="VNPay"
+              label="VNPay"
+              value="VNPay"
+              checked={paymentMethodName === 'VNPay'}
               onChange={(e) => setPaymentMethod(e.target.value)}
             />
           </div>
