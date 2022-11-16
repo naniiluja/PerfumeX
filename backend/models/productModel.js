@@ -13,6 +13,7 @@ const reviewSchema = new mongoose.Schema(
 
 const productSchema = new mongoose.Schema(
   {
+    customId:{type: String, required: false, unique: true},
     name: { type: String, required: true, unique: true },
     slug: { type: String, required: true, unique: true },
     image: { type: String, required: true },
@@ -25,6 +26,15 @@ const productSchema = new mongoose.Schema(
     rating: { type: Number, required: true },
     numReviews: { type: Number, required: true },
     reviews: [reviewSchema],
+    tone:{type: String, required: true},
+    first:{type:String, required: true},
+    mid:{type: String, required: true},
+    end:{type:String, required: true},
+    year:{type: Number, required: true},
+    age:{type: Number, required: true},
+    odor:{type: Number, required: true},
+    season:{type: String, required: true},
+    time:{type: String, required: true},
   },
   {
     timestamps: true,

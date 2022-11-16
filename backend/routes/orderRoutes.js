@@ -4,6 +4,9 @@ import Order from '../models/orderModel.js';
 import User from '../models/userModel.js';
 import Product from '../models/productModel.js';
 import { isAuth, isAdmin } from '../utils.js';
+import sortObject from '../helper/payment.helper.js';
+import queryString from 'qs';
+import crypto from 'crypto';
 
 const orderRouter = express.Router();
 
@@ -69,7 +72,7 @@ orderRouter.get(
       },
       { $sort: { _id: 1 } },
     ]);
-    
+
     const productCategories = await Product.aggregate([
       {
         $group: {
@@ -157,5 +160,66 @@ orderRouter.delete(
     }
   })
 );
+
+orderRouter.post('/create_payment_url', function (req, res, next) {
+  var ipAddr =
+    req.headers['x-forwarded-for'] ||
+    req.connection.remoteAddress ||
+    req.socket.remoteAddress ||
+    req.connection.socket.remoteAddress;
+
+  var tmnCode = 'ED8Y45WY';
+  var secretKey = 'JFXCJWGUBXFJNGMRHVOBQGTDHDRWYPVM';
+  var vnpUrl = 'https://sandbox.vnpayment.vn/paymentv2/vpcpay.html';
+  var returnUrl = `http://localhost:3000/order/${req.body.orderId}`;
+  var date = new Date();
+
+  var createDate =
+    date.getFullYear() +
+    ('0' + (date.getMonth() + 1)).slice(-2) +
+    ('0' + date.getDate()).slice(-2) +
+    ('0' + date.getHours()).slice(-2) +
+    ('0' + date.getMinutes()).slice(-2) +
+    ('0' + date.getSeconds()).slice(-2);
+
+  var orderId = req.body.orderId;
+  var amount = req.body.amount;
+  var bankCode = 'NCB';
+  var orderInfo = req.body.details;
+  var orderType = 'other';
+  var locale = 'vn';
+  var currCode = 'VND';
+  var vnp_Params = {};
+  vnp_Params['vnp_Version'] = '2.1.0';
+  vnp_Params['vnp_Command'] = 'pay';
+  vnp_Params['vnp_TmnCode'] = tmnCode;
+  // vnp_Params['vnp_Merchant'] = ''
+  vnp_Params['vnp_Locale'] = locale;
+  vnp_Params['vnp_CurrCode'] = currCode;
+  vnp_Params['vnp_TxnRef'] = orderId;
+  vnp_Params['vnp_OrderInfo'] = orderInfo;
+  vnp_Params['vnp_OrderType'] = orderType;
+  vnp_Params['vnp_Amount'] = amount * 100;
+  vnp_Params['vnp_ReturnUrl'] = returnUrl;
+  vnp_Params['vnp_IpAddr'] = ipAddr;
+  vnp_Params['vnp_CreateDate'] = createDate;
+  if (bankCode !== null && bankCode !== '') {
+    vnp_Params['vnp_BankCode'] = bankCode;
+  }
+
+  vnp_Params = sortObject(vnp_Params);
+
+  var signData = queryString.stringify(vnp_Params, { encode: false });
+  var hmac = crypto.createHmac('sha512', secretKey);
+  var signed = hmac.update(new Buffer(signData, 'utf-8')).digest('hex');
+  vnp_Params['vnp_SecureHash'] = signed;
+  vnpUrl += '?' + queryString.stringify(vnp_Params, { encode: false });
+
+  res.send({
+    message: 'Đặt hàng thành công',
+    success: true,
+    data: vnpUrl,
+  });
+});
 
 export default orderRouter;

@@ -8,6 +8,16 @@ import { useContext, useEffect, useState } from 'react';
 import { Store } from '../Store';
 import { toast } from 'react-toastify';
 import { getError } from '../utils';
+import {
+  CDBInput,
+  CDBCheckbox,
+  CDBCard,
+  CDBCardBody,
+  CDBIcon,
+  CDBBtn,
+  CDBLink,
+  CDBContainer,
+} from 'cdbreact';
 
 export default function SigninScreen() {
   const navigate = useNavigate();
@@ -42,7 +52,7 @@ export default function SigninScreen() {
   }, [navigate, redirect, userInfo]);
 
   return (
-    <Container className="small-container">
+    <CDBContainer className="small-container">
       <Helmet>
         <title>Sign In</title>
       </Helmet>
@@ -72,6 +82,6 @@ export default function SigninScreen() {
           <Link to={`/signup?redirect=${redirect}`}>Create your account</Link>
         </div>
       </Form>
-    </Container>
+    </CDBContainer>
   );
 }
