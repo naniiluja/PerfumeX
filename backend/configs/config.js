@@ -1,0 +1,1 @@
+export const DontSayTheseWords = ["fuck", "fucking", "trash", "shit", "cức"];
