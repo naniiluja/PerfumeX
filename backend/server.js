@@ -1,5 +1,4 @@
 import express from 'express';
-import data from './data.js';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import seedRouter from './routes/seedRoutes.js';
@@ -7,10 +6,7 @@ import productRouter from './routes/productRoutes.js';
 import userRouter from './routes/userRoutes.js';
 import orderRouter from './routes/orderRoutes.js';
 import uploadRouter from './routes/uploadRoutes.js';
-import sortObject from './helper/payment.helper.js';
-import queryString from 'qs';
-import crypto from 'crypto';
-import Order from './models/orderModel.js';
+import path from 'path';
 
 dotenv.config();
 
@@ -38,10 +34,10 @@ app.use('/api/products', productRouter);
 app.use('/api/users', userRouter);
 app.use('/api/orders', orderRouter);
 
-const _dirname = path.resolve();
-app.use(express.static(path.join(_dirname, '/frontend/build')));
+const __dirname = path.resolve();
+app.use(express.static(path.join(__dirname, '/frontend/build')));
 app.get('*', (req, res) =>
-  res.sendFile(path.join(_dirname, '/frontend/build/index.html'))
+  res.sendFile(path.join(__dirname, '/frontend/build/index.html'))
 );
 
 app.use((err, req, res, next) => {
