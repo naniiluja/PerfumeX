@@ -1,38 +1,39 @@
-import { Link, BrowserRouter, Route, Routes } from "react-router-dom";
-import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import HomeScreen from "./screens/HomeScreen";
-import ProductScreen from "./screens/ProductScreen";
-import NavDropdown from "react-bootstrap/NavDropdown";
-import Navbar from "react-bootstrap/Navbar";
-import Container from "react-bootstrap/Container";
-import { LinkContainer } from "react-router-bootstrap";
-import { useContext, useEffect, useState } from "react";
-import { Store } from "./Store";
-import Badge from "react-bootstrap/Badge";
-import Nav from "react-bootstrap/Nav";
-import CartScreen from "./screens/CartScreen";
-import SigninScreen from "./screens/SigninScreen";
-import SignupScreen from "./screens/SignupScreen";
-import ShippingAddressScreen from "./screens/ShippingAddressScreen";
-import PaymentMethodScreen from "./screens/PaymentMethodScreen";
-import PlaceOrderScreen from "./screens/PlaceOrderScreen";
-import OrderScreen from "./screens/OrderScreen";
-import OrderHistoryScreen from "./screens/OrderHistoryScreen";
-import ProfileScreen from "./screens/ProfileScreen";
-import Button from "react-bootstrap/Button";
-import { getError } from "./utils";
-import axios from "axios";
-import SearchBox from "./components/SearchBox";
-import SearchScreen from "./screens/SearchScreen";
-import ProtectedRoute from "./components/ProtectedRoute";
-import DashboardScreen from "./screens/DashboardScreen";
-import AdminRoute from "./components/AdminRoute";
-import ProductListScreen from "./screens/ProductListScreen";
-import ProductEditScreen from "./screens/ProductEditScreen";
-import OrderListScreen from "./screens/OrderListScreen";
-import UserListScreen from "./screens/UserListScreen";
-import UserEditScreen from "./screens/UserEditScreen";
+import { Link, BrowserRouter, Route, Routes } from 'react-router-dom';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import HomeScreen from './screens/HomeScreen';
+import ProductScreen from './screens/ProductScreen';
+import NavDropdown from 'react-bootstrap/NavDropdown';
+import Navbar from 'react-bootstrap/Navbar';
+import Container from 'react-bootstrap/Container';
+import { LinkContainer } from 'react-router-bootstrap';
+import { useContext, useEffect, useState } from 'react';
+import { Store } from './Store';
+import Badge from 'react-bootstrap/Badge';
+import Nav from 'react-bootstrap/Nav';
+import CartScreen from './screens/CartScreen';
+import SigninScreen from './screens/SigninScreen';
+import SignupScreen from './screens/SignupScreen';
+import ShippingAddressScreen from './screens/ShippingAddressScreen';
+import PaymentMethodScreen from './screens/PaymentMethodScreen';
+import PlaceOrderScreen from './screens/PlaceOrderScreen';
+import OrderScreen from './screens/OrderScreen';
+import OrderHistoryScreen from './screens/OrderHistoryScreen';
+import ProfileScreen from './screens/ProfileScreen';
+import Button from 'react-bootstrap/Button';
+import { getError } from './utils';
+import axios from 'axios';
+import SearchBox from './components/SearchBox';
+import SearchScreen from './screens/SearchScreen';
+import ProtectedRoute from './components/ProtectedRoute';
+import DashboardScreen from './screens/DashboardScreen';
+import AdminRoute from './components/AdminRoute';
+import ProductListScreen from './screens/ProductListScreen';
+import ProductEditScreen from './screens/ProductEditScreen';
+import OrderListScreen from './screens/OrderListScreen';
+import UserListScreen from './screens/UserListScreen';
+import UserEditScreen from './screens/UserEditScreen';
+import ChatBot from './components/ChatBot';
 import {
   CDBFooter,
   CDBBox,
@@ -41,20 +42,20 @@ import {
   CDBNavbar,
   CDBSidebarHeader,
   CDBSidebarMenuItem,
-} from "cdbreact";
-import SrollToTop from "./components/SrollToTop";
-import AboutScreen from "./screens/AboutScreen";
+} from 'cdbreact';
+import SrollToTop from './components/SrollToTop';
+import AboutScreen from './screens/AboutScreen';
 
 function App() {
   const { state, dispatch: ctxDispatch } = useContext(Store);
   const { cart, userInfo } = state;
-  const bgBlack = { backgroundColor: "#000000", color: "#f4f4f4" };
+  const bgBlack = { backgroundColor: '#000000', color: '#f4f4f4' };
   const signoutHandler = () => {
-    ctxDispatch({ type: "USER_SIGNOUT" });
-    localStorage.removeItem("userInfo");
-    localStorage.removeItem("shippingAddress");
-    localStorage.removeItem("paymentMethod");
-    window.location.href = "/signin";
+    ctxDispatch({ type: 'USER_SIGNOUT' });
+    localStorage.removeItem('userInfo');
+    localStorage.removeItem('shippingAddress');
+    localStorage.removeItem('paymentMethod');
+    window.location.href = '/signin';
   };
   const [sidebarIsOpen, setSidebarIsOpen] = useState(false);
   const [categories, setCategories] = useState([]);
@@ -72,18 +73,19 @@ function App() {
   }, []);
   return (
     <BrowserRouter>
+    <ChatBot/>
       <div
         className={
           sidebarIsOpen
-            ? "d-flex flex-column site-container active-cont"
-            : "d-flex flex-column site-container"
+            ? 'd-flex flex-column site-container active-cont'
+            : 'd-flex flex-column site-container'
         }
       >
         <ToastContainer position="bottom-center" limit={1} />
-        <header style={{ marginBottom: "20px" }}>
+        <header style={{ marginBottom: '20px' }}>
           <CDBNavbar style={bgBlack} dark expand="md" scrolling>
             <Button
-              style={{ marginLeft: "100px" }}
+              style={{ marginLeft: '100px' }}
               variant="dark"
               onClick={() => setSidebarIsOpen(!sidebarIsOpen)}
             >
@@ -93,10 +95,14 @@ function App() {
                 width="30px"
               />
             </Button>
-            <Container style={{ marginLeft: "-10px" }}>
+            <Container style={{ marginLeft: '-10px' }}>
               <LinkContainer to="/">
-                <Navbar.Brand className="perfumeX"
-                onClick={() => setSidebarIsOpen(false)}>PerfumeX</Navbar.Brand>
+                <Navbar.Brand
+                  className="perfumeX"
+                  onClick={() => setSidebarIsOpen(false)}
+                >
+                  PerfumeX
+                </Navbar.Brand>
               </LinkContainer>
               <Navbar.Toggle aria-controls="basic-navbar-nav" />
               <Navbar.Collapse id="basic-navbar-nav">
@@ -104,10 +110,16 @@ function App() {
                 <Nav className="me-auto  w-100  justify-content-end">
                   {userInfo ? (
                     <NavDropdown title={userInfo.name} id="basic-nav-dropdown">
-                      <LinkContainer to="/profile">
+                      <LinkContainer
+                        to="/profile"
+                        onClick={() => setSidebarIsOpen(false)}
+                      >
                         <NavDropdown.Item>User Profile</NavDropdown.Item>
                       </LinkContainer>
-                      <LinkContainer to="/orderhistory">
+                      <LinkContainer
+                        to="/orderhistory"
+                        onClick={() => setSidebarIsOpen(false)}
+                      >
                         <NavDropdown.Item>Order History</NavDropdown.Item>
                       </LinkContainer>
                       <NavDropdown.Divider />
@@ -120,28 +132,40 @@ function App() {
                       </Link>
                     </NavDropdown>
                   ) : (
-                    <CDBBtn color="white" style={{ padding: "0px 10px" }}>
+                    <CDBBtn color="white" style={{ padding: '0px 10px' }}>
                       <Link
                         className="nav-link"
                         to="/signin"
-                        style={{ color: "#000", width: "80px" }}
+                        style={{ color: '#000', width: '80px' }}
                       >
                         Sign In
                       </Link>
                     </CDBBtn>
                   )}
                   {userInfo && userInfo.isAdmin && (
-                    <NavDropdown title="Dasboard" id="admin-nav-dropdown">
-                      <LinkContainer to="/admin/dashboard">
+                    <NavDropdown title="Administrator" id="admin-nav-dropdown">
+                      <LinkContainer
+                        to="/admin/dashboard"
+                        onClick={() => setSidebarIsOpen(false)}
+                      >
                         <NavDropdown.Item>Dashboard</NavDropdown.Item>
                       </LinkContainer>
-                      <LinkContainer to="/admin/products">
+                      <LinkContainer
+                        to="/admin/products"
+                        onClick={() => setSidebarIsOpen(false)}
+                      >
                         <NavDropdown.Item>Products</NavDropdown.Item>
                       </LinkContainer>
-                      <LinkContainer to="/admin/orders">
+                      <LinkContainer
+                        to="/admin/orders"
+                        onClick={() => setSidebarIsOpen(false)}
+                      >
                         <NavDropdown.Item>Orders</NavDropdown.Item>
                       </LinkContainer>
-                      <LinkContainer to="/admin/users">
+                      <LinkContainer
+                        to="/admin/users"
+                        onClick={() => setSidebarIsOpen(false)}
+                      >
                         <NavDropdown.Item>Users</NavDropdown.Item>
                       </LinkContainer>
                     </NavDropdown>
@@ -164,8 +188,8 @@ function App() {
         <div
           className={
             sidebarIsOpen
-              ? "active-nav side-navbar d-flex justify-content-between flex-wrap flex-column"
-              : "side-navbar d-flex justify-content-between flex-wrap flex-column"
+              ? 'active-nav side-navbar d-flex justify-content-between flex-wrap flex-column'
+              : 'side-navbar d-flex justify-content-between flex-wrap flex-column'
           }
         >
           <Nav className="flex-column text-white w-100 p-2">
@@ -186,8 +210,10 @@ function App() {
               </Nav.Item>
             ))}
             <Nav.Item>
-              <LinkContainer to="/about"
-              onClick={() => setSidebarIsOpen(false)}>
+              <LinkContainer
+                to="/about"
+                onClick={() => setSidebarIsOpen(false)}
+              >
                 <CDBSidebarMenuItem
                   icon="fas fa-angle-right"
                   className="navlinka"
@@ -198,7 +224,7 @@ function App() {
             </Nav.Item>
           </Nav>
         </div>
-        
+
         <main>
           <Container>
             <Routes>
@@ -300,7 +326,7 @@ function App() {
               justifyContent="between"
               alignItems="center"
               className="mx-auto py-4 flex-wrap"
-              style={{ width: "80%" }}
+              style={{ width: '80%' }}
             >
               <CDBBox display="flex" alignItems="center">
                 <a href="/" className="d-flex align-items-center p-0 text-dark">

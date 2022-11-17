@@ -62,6 +62,7 @@ export default function OrderScreen() {
   const navigate = useNavigate();
   const location = useLocation();
   const paymentState = location.search;
+  var isPaymentMethod = localStorage.getItem('paymentMethod');
 
   const [
     {
@@ -239,7 +240,7 @@ export default function OrderScreen() {
       <Helmet>
         <title>Order {orderId}</title>
       </Helmet>
-      
+
       <h1 className="my-3">Order {orderId}</h1>
       <Row>
         <Col md={8}>
@@ -342,12 +343,17 @@ export default function OrderScreen() {
                       <LoadingBox />
                     ) : (
                       <div>
-                        <PayPalButtons
-                          createOrder={createOrder}
-                          onApprove={onApprove}
-                          onError={onError}
-                        ></PayPalButtons>
-                        <Button onClick={paymentVNPay}>Thanh toán bằng VNPay</Button>
+                        {isPaymentMethod == 'PayPal' ? (
+                          <PayPalButtons
+                            createOrder={createOrder}
+                            onApprove={onApprove}
+                            onError={onError}
+                          ></PayPalButtons>
+                        ) : (
+                          <Button onClick={paymentVNPay}>
+                            Thanh toán bằng VNPay
+                          </Button>
+                        )}
                       </div>
                     )}
                     {loadingPay && <LoadingBox></LoadingBox>}
