@@ -166,8 +166,7 @@ function HomeScreen() {
                   <MDBTypography tag="h4">Freeship toàn quốc</MDBTypography>
                   <MDBCardText className="text-muted mb-4">
                     PerfumeX áp dụng freeship cho tất cả các khách hàng trên
-                    toàn quốc. Chúng tôi chưa áp dụng hình thức giao hàng quốc
-                    tế tại thời điểm này
+                    toàn quốc với đơn hàng trên $100. Với những đơn hàng dưới $100, chúng tôi tính phí 30.000 VNĐ/đơn hàng
                   </MDBCardText>
                 </MDBCardBody>
               </MDBCard>
