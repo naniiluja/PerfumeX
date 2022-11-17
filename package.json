@@ -4,6 +4,9 @@
   },
   "name": "perfumex",
   "version": "1.0.0",
+  "engines": {
+    "node": "6.11.1"
+  },
   "main": "index.js",
   "devDependencies": {},
   "scripts": {
