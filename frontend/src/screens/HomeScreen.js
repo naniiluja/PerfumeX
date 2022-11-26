@@ -71,12 +71,12 @@ function HomeScreen() {
           <Carousel.Caption>
             <h3 className="perfumeXbig">WOMEN'S FRAGRANCES</h3>
             <p className="perfumeXsmall">
-              Diverse expressions of self are celebrated through Authentic
+              Khía cạnh độc đáo của bản thân, cũng như sự quyến rũ của phái nữ
               <br />
-              perfumes for women with a refined blend of scents.
+              được tôn vinh lên bởi sự pha trộn độc đáo và tinh tế của các mùi hương...
             </p>
             <Button href="/search?category=Women" variant="primary">
-              SHOP NOW
+            KHÁM PHÁ NGAY
             </Button>
           </Carousel.Caption>
         </Carousel.Item>
@@ -89,11 +89,10 @@ function HomeScreen() {
           <Carousel.Caption>
             <h3 className="perfumeXbig">FRAGRANCES FOR HIM</h3>
             <p className="perfumeXsmall">
-              Expressed through aromatic scents and unexpected blends of
-              perfumes—men's fragrances are a celebration of freedom.
+              Thể hiện qua hương thơm và sự pha trộn độc đáo của các mùi hương - <br />tôn vinh lên sự tự do của nước hoa nam.
             </p>
             <Button href="/search?category=Men" variant="primary">
-              SHOP NOW
+              KHÁM PHÁ NGAY
             </Button>
           </Carousel.Caption>
         </Carousel.Item>
@@ -107,16 +106,15 @@ function HomeScreen() {
           <Carousel.Caption>
             <h3 className="perfumeXbig">UNISEX'S FRAGRANCES</h3>
             <p className="perfumeXsmall">
-              Diverse expressions of self are celebrated through Authentic
-              perfumes for everyone with a refined blend of scents.
+              Những khía cạnh khác của bản thân được tôn lên qua loại nước hoa dành cho mọi người với sự hoà trộn tinh tế của các mùi hương...
             </p>
             <Button href="/search?category=Unisex" variant="primary">
-              SHOP NOW
+            KHÁM PHÁ NGAY
             </Button>
           </Carousel.Caption>
         </Carousel.Item>
       </Carousel>
-      <h1 className="uk-text-center">Featured Products</h1>
+      <h1 className="uk-text-center">SẢN PHẨM NỔI BẬT</h1>
       <div className="products">
         {loading ? (
           <LoadingBox />
