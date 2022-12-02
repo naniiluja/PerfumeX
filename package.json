@@ -10,7 +10,7 @@
   "main": "index.js",
   "devDependencies": {},
   "scripts": {
-    "build": "cd backend && npm install --force  && cd ../frontend && npm install --force && npm run build",
+    "build": "cd backend && npm install --force  && cd ../frontend && npm install --force && npm run build --output public",
     "start": "node backend/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
