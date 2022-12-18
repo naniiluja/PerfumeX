@@ -114,7 +114,7 @@ export default function OrderListScreen() {
           <tbody>
             {orders.map((order) => (
               <tr key={order._id}>
-                <td>{order._id}</td>
+                <td>{order.customId}</td>
                 <td>{order.user ? order.user.name : "DELETED USER"}</td>
                 <td>{order.createdAt.substring(0, 10)}</td>
                 <td>{order.totalPrice.toFixed(2)}</td>

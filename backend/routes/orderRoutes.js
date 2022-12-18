@@ -26,6 +26,7 @@ orderRouter.post(
   expressAsyncHandler(async (req, res) => {
     const newOrder = new Order({
       orderItems: req.body.orderItems.map((x) => ({ ...x, product: x._id })),
+      customId: ("PerfumeX"+req.user.name+req.body.paymentMethod+Date.now()).replace(/\s+/g, '').toLowerCase(),
       shippingAddress: req.body.shippingAddress,
       paymentMethod: req.body.paymentMethod,
       itemsPrice: req.body.itemsPrice,
