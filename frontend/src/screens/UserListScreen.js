@@ -114,7 +114,7 @@ export default function UserListScreen() {
           <tbody>
             {users.map((user) => (
               <tr key={user._id}>
-                <td>{user._id}</td>
+                <td>{user.customId}</td>
                 <td>{user.name}</td>
                 <td>{user.email}</td>
                 <td>{user.isAdmin ? "YES" : "NO"}</td>

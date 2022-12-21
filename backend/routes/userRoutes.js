@@ -62,6 +62,7 @@ userRouter.put(
   expressAsyncHandler(async (req, res) => {
     const user = await User.findById(req.params.id);
     if (user) {
+      user.customId = ("user"+req.body.name+Date.now()).replace(/\s+/g, '').toLowerCase();
       user.name = req.body.name || user.name;
       user.email = req.body.email || user.email;
       user.isAdmin = Boolean(req.body.isAdmin);
@@ -119,6 +120,7 @@ userRouter.post(
       name: req.body.name,
       email: req.body.email,
       password: bcrypt.hashSync(req.body.password),
+      customId: ("user"+req.body.name+Date.now()).replace(/\s+/g, '').toLowerCase()
     });
     const user = await newUser.save();
     res.send({
