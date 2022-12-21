@@ -46,7 +46,7 @@ export default function UserEditScreen() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [isAdmin, setIsAdmin] = useState(false);
-
+  const [customId, setCustomId] = useState('');
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -57,6 +57,7 @@ export default function UserEditScreen() {
         setName(data.name);
         setEmail(data.email);
         setIsAdmin(data.isAdmin);
+        setCustomId(data.customId);
         dispatch({ type: 'FETCH_SUCCESS' });
       } catch (err) {
         dispatch({
@@ -74,7 +75,7 @@ export default function UserEditScreen() {
       dispatch({ type: 'UPDATE_REQUEST' });
       await axios.put(
         `/api/users/${userId}`,
-        { _id: userId, name, email, isAdmin },
+        { _id: userId, name, email, isAdmin, customId },
         {
           headers: { Authorization: `Bearer ${userInfo.token}` },
         }
@@ -92,9 +93,9 @@ export default function UserEditScreen() {
   return (
     <Container className="small-container">
       <Helmet>
-        <title>Edit User ${userId}</title>
+        <title>Edit User ${customId}</title>
       </Helmet>
-      <h1>Edit User {userId}</h1>
+      <h1>Edit User {customId}</h1>
 
       {loading ? (
         <LoadingBox></LoadingBox>
