@@ -148,9 +148,9 @@ orderRouter.put(
         .messages()
         .send(
           {
-            from: 'PerfumeX <admin@mg.perfumeX.com>',
+            from: 'Amazona <amazona@mg.yourdomain.com>',
             to: `${order.user.name} <${order.user.email}>`,
-            subject: `New order ${order.customId}`,
+            subject: `New order ${order._id}`,
             html: payOrderEmailTemplate(order),
           },
           (error, body) => {
