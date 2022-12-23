@@ -203,7 +203,7 @@ export default function OrderScreen() {
         '/api/orders/create_payment_url',
         {
           orderId: orderId,
-          amount: order.totalPrice * 24785,
+          amount: (order.totalPrice * 24785).toFixed(0),
           details: 'quan',
         },
         {

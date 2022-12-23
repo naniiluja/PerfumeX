@@ -194,7 +194,7 @@ orderRouter.post('/create_payment_url', function (req, res, next) {
   var tmnCode = 'ED8Y45WY';
   var secretKey = 'JFXCJWGUBXFJNGMRHVOBQGTDHDRWYPVM';
   var vnpUrl = 'https://sandbox.vnpayment.vn/paymentv2/vpcpay.html';
-  var returnUrl = `https://perfumex.onrender.com/order/${req.body.orderId}`;
+  var returnUrl = `http://localhost:3000/order/${req.body.orderId}`;
   var date = new Date();
 
   var createDate =
@@ -237,7 +237,7 @@ orderRouter.post('/create_payment_url', function (req, res, next) {
   var signed = hmac.update(new Buffer(signData, 'utf-8')).digest('hex');
   vnp_Params['vnp_SecureHash'] = signed;
   vnpUrl += '?' + queryString.stringify(vnp_Params, { encode: false });
-
+console.log(vnp_Params)
   res.send({
     message: 'Đặt hàng thành công',
     success: true,

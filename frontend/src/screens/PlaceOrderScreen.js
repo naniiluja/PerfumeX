@@ -43,7 +43,7 @@ export default function PlaceOrderScreen() {
   cart.shippingPrice = cart.itemsPrice > 100 ? round2(0) : round2(1.21);
   cart.taxPrice = round2(0.1 * cart.itemsPrice);
   cart.totalPrice = cart.itemsPrice + cart.shippingPrice + cart.taxPrice;
-
+console.log(cart.totalPrice)
   const placeOrderHandler = async () => {
     try {
       dispatch({ type: "CREATE_REQUEST" });
